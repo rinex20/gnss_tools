@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 
 # Get RTKLIB and compile only required components
 ARG RTKLIB_URL=https://github.com/rtklibexplorer/RTKLIB.git
-RUN git clone --depth 1 --branch ${RTK_VER} ${RTKLIB_URL} \
+RUN git clone ${RTKLIB_URL} \
     && (cd RTKLIB/lib/iers/gcc/; make) \
     && (cd RTKLIB/app/convbin/gcc/; make; make install) \
     && (cd RTKLIB/app/rnx2rtkp/gcc/; make; make install) \
