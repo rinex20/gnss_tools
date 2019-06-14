@@ -45,5 +45,5 @@ RUN apt-get update && apt-get install -y csh
 COPY --from=builder /usr/local/bin/* teqc RNXCMP_*/bin/* /usr/local/bin/
 
 # run rtkrcv
-EXPOSE 18077 18078
-CMD ["rtkrcv", "-p 18077 -m 18078"] 
+EXPOSE 8077 8078
+CMD ["rtkrcv", "-p 8077 -m 8078"] 
