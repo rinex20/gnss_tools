@@ -50,6 +50,6 @@ RUN wget --no-check-certificate ${CONF_URL} -O rtkrcv.conf
 # COPY --from=builder /usr/local/bin/* teqc RNXCMP_*/bin/* /usr/local/bin/
 
 # run rtkrcv
-EXPOSE 8077 8078 82001 82002 82003 82004 82005 82006 82007 82008
+EXPOSE 8077 8078 8001-8008
 # CMD ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
 ENTRYPOINT ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
