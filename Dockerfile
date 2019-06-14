@@ -22,11 +22,10 @@ RUN git clone --depth 1 --branch ${RTK_VER} ${RTKLIB_URL} \
     && (cd RTKLIB/app/str2str/gcc/; make; make install) \
     && (cd RTKLIB/app/rtkrcv/gcc/; make; make install) 
 
+WORKDIR /data/rtk/conf
 # get conf file
 ARG CONF_URL=https://raw.githubusercontent.com/rinex20/gnss_tools/master/conf/rtkrcv.conf
-RUN mkdir ~/rtk \
-    && mkdir ~/rtk/conf \
-    && wget --no-check-certificate ${CONF_URL} -O ~/rtk/conf/rtkrcv.conf
+RUN wget --no-check-certificate ${CONF_URL} -O rtkrcv.conf
 
 # teqc
 # ARG TEQC_URL=https://www.unavco.org/software/data-processing/teqc/development/teqc_CentOSLx86_64s.zip
@@ -52,4 +51,4 @@ RUN mkdir ~/rtk \
 
 # run rtkrcv
 EXPOSE 8077 8078 82001-82008
-CMD ["rtkrcv", "-p 8077 -m 8078 -o ~/rtk/conf/rtkrcv.conf"] 
+CMD ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
