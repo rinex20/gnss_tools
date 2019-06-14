@@ -21,6 +21,7 @@ RUN git clone --depth 1 --branch ${RTKLIB_TAG} ${RTKLIB_URL} \
     && (cd RTKLIB/app/str2str/gcc/; make; make install) \
     && (cd RTKLIB/app/rtkrcv/gcc/; make; make install) 
 
+
 # teqc
 ARG TEQC_URL=https://www.unavco.org/software/data-processing/teqc/development/teqc_CentOSLx86_64s.zip
 RUN wget --no-check-certificate ${TEQC_URL} -O teqc.zip \
@@ -43,4 +44,6 @@ RUN apt-get update && apt-get install -y csh
 
 COPY --from=builder /usr/local/bin/* teqc RNXCMP_*/bin/* /usr/local/bin/
 
-
+# run rtkrcv
+EXPOSE 18077 18078
+CMD ["rtkrcv", "-p 18077 -m 18078"] 
