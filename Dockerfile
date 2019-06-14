@@ -1,5 +1,8 @@
 FROM ubuntu:18.04 as builder
 
+ENV version=b31_mod_201906
+ENV RTK_VER=demo5
+
 RUN apt-get update && apt-get install -y \
         bash \
         build-essential  \
@@ -11,8 +14,7 @@ RUN apt-get update && apt-get install -y \
 
 # Get RTKLIB and compile only required components
 ARG RTKLIB_URL=https://github.com/rtklibexplorer/RTKLIB.git
-ARG RTKLIB_TAG=demo5 
-RUN git clone --depth 1 --branch ${RTKLIB_TAG} ${RTKLIB_URL} \
+RUN git clone --depth 1 --branch ${RTK_VER} ${RTKLIB_URL} \
     && (cd RTKLIB/lib/iers/gcc/; make) \
     && (cd RTKLIB/app/convbin/gcc/; make; make install) \
     && (cd RTKLIB/app/rnx2rtkp/gcc/; make; make install) \
