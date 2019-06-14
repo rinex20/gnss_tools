@@ -51,4 +51,5 @@ RUN wget --no-check-certificate ${CONF_URL} -O rtkrcv.conf
 
 # run rtkrcv
 EXPOSE 8077 8078 82001-82008
-CMD ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
+# CMD ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
+ENTRYPOINT ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
