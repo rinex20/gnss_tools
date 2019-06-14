@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
         unzip
 
 # Get RTKLIB and compile only required components
-ARG RTKLIB_URL=https://github.com/tomojitakasu/RTKLIB.git
-ARG RTKLIB_TAG=rtklib_2.4.3 
+ARG RTKLIB_URL=https://github.com/rtklibexplorer/RTKLIB.git
+ARG RTKLIB_TAG=demo5 
 RUN git clone --depth 1 --branch ${RTKLIB_TAG} ${RTKLIB_URL} \
     && (cd RTKLIB/lib/iers/gcc/; make) \
     && (cd RTKLIB/app/convbin/gcc/; make; make install) \
