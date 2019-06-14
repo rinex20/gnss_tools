@@ -1,6 +1,6 @@
 FROM ubuntu:18.04 as builder
 
-ENV version=b31_mod_201906
+ENV version=b31_mod_20190614
 ENV RTK_VER=demo5
 
 RUN apt-get update && apt-get install -y \
@@ -52,4 +52,4 @@ RUN wget --no-check-certificate ${CONF_URL} -O rtkrcv.conf
 # run rtkrcv
 EXPOSE 8077 8078 8001-8008
 # CMD ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
-ENTRYPOINT ["rtkrcv", "-p", "8077", "-m","8078", "-o", "/data/rtk/conf/rtkrcv.conf"] 
+ENTRYPOINT ["rtkrcv", "-p", "8077", "-m","8078", "-o", "/data/rtk/conf/rtkrcv.conf","-s"] 
