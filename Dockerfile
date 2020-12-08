@@ -25,7 +25,7 @@ RUN git clone --depth 1 ${RTKLIB_URL} \
 WORKDIR /data/rtk/conf
 # get conf file
 ARG CONF_URL=https://raw.githubusercontent.com/rinex20/gnss_tools/master/conf/rtkrcv.conf
-RUN wget --no-check-certificate ${CONF_URL} -O rtkrcv.conf
+RUN wget --no-check-certificate ${CONF_URL} -O /data/rtk/conf/rtkrcv.conf
 
 # teqc
 # ARG TEQC_URL=https://www.unavco.org/software/data-processing/teqc/development/teqc_CentOSLx86_64s.zip
@@ -43,13 +43,15 @@ RUN wget --no-check-certificate ${CONF_URL} -O rtkrcv.conf
 # && mv gfzrnx_lx /usr/local/bin/ \
 # && (cd /usr/local/bin/; ln -s gfzrnx_lx gfzrnx)
 
-# FROM ubuntu:18.04
+FROM ubuntu:18.04
 
 # RUN apt-get update && apt-get install -y csh
 
-# COPY --from=builder /usr/local/bin/* teqc RNXCMP_*/bin/* /usr/local/bin/
+COPY --from=builder /usr/local/bin/* /usr/local/bin/
+COPY --from=builder /data/rtk/conf/* /data/rtk/
 
 # run rtkrcv
 EXPOSE 8077 8078 8001-8008
+VOLUME /data/rtk
 # CMD ["rtkrcv", "-p 8077 -m 8078 -o /data/rtk/conf/rtkrcv.conf"] 
-ENTRYPOINT ["rtkrcv", "-p", "8077", "-m","8078", "-o", "/data/rtk/conf/rtkrcv.conf","-s"] 
+ENTRYPOINT ["/usr/local/bin/rtkrcv", "-p", "8077", "-m","8078", "-o", "/data/rtk/rtkrcv.conf","-s"] 
